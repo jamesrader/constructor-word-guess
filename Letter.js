@@ -1,16 +1,11 @@
 var Letter = function(letter){
-    //console.log("HERE!");
     this.character = letter;
-    //console.log(this.character);
     this.revealed = false;
-
 
     this.checkCharacter = function(guess){
         if (this.character === guess){
             this.revealed = true;
             return true;
-            //console.log(this.revealed);
-            //this.displayCharacter();
         }
         return false;
     }
@@ -21,10 +16,7 @@ var Letter = function(letter){
         } else {
             return "_";
         }
-    }
-
-    //this.displayCharacter();
-    
+    }  
 }
 
     module.exports = Letter;

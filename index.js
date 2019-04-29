@@ -2,15 +2,12 @@ var createWord = require("./Word.js");
 var inquirer = require("inquirer");
 var guessedLetters = [];
 
-var ui = new inquirer.ui.BottomBar();
 console.clear();
 
 var randomWord = "jamesrader";
-//console.log(randomWord);
-//createWord(randomWord);
 
 var gameWord = new createWord(randomWord);
-//console.log(gameWord);
+
 var display = gameWord.buildWord();
 console.clear();
 console.log(display + "\n");
@@ -29,20 +26,24 @@ function guessLetter() {
           display = gameWord.checkGuess(answers.letterGuess);
           console.clear();
           console.log(display + "\n");
+          var correctOrNot = updateRemainingGuesses();
           if (gameWord.correctCount === gameWord.wordLength) {
-            congratulate();
-          } else {
+            winMessage();
+          } else if (gameWord.remainingGuesses === 0){
+            lossMessage();
+          } else {  
             guessedLetters.push(answers.letterGuess);
             console.log("Guessed letters: " + guessedLetters.join(", ") + "\n");
+            console.log(correctOrNot + "\n");
+            console.log("Incorrect guesses remaining: " + gameWord.remainingGuesses + "\n");
             guessLetter();
           }
         } else {
-            console.clear();
+          console.clear();
           console.log(display + "\n");
-            console.log("Guessed letters: " + guessedLetters.join(", ") + "\n");
+          console.log("Guessed letters: " + guessedLetters.join(", ") + "\n");
+          console.log("Incorrect guesses remaining: " + gameWord.remainingGuesses + "\n");
           console.log("Uhhh...you already guessed that letter!");
-          //ui.log.write("Uhhh...you already guessed that letter!");
-          //console.log("Guessed letters: " + guessedLetters.join(", ") + "\n");
           guessLetter();
         }
       } else {
@@ -54,8 +55,20 @@ function guessLetter() {
     });
 }
 
-function congratulate() {
+function updateRemainingGuesses() {
+    if (gameWord.newCorrect === 0){
+        gameWord.remainingGuesses --;
+        return "Incorrect!";
+    }
+        return "Correct!";
+}
+
+function winMessage() {
   console.log("Congratulations...you win!!!");
+}
+
+function lossMessage() {
+    console.log("Sorry...you're out of guesses. You lose.")
 }
 
 guessLetter();
