@@ -4,13 +4,14 @@ var guessedLetters = [];
 
 console.clear();
 
-var randomWord = "jamesrader";
+var randomWord = "james rader";
 
 var gameWord = new createWord(randomWord);
 
 var display = gameWord.buildWord();
 console.clear();
 console.log(display + "\n");
+console.log(gameWord.wordLength);
 
 function guessLetter() {
   inquirer
@@ -36,6 +37,7 @@ function guessLetter() {
             console.log("Guessed letters: " + guessedLetters.join(", ") + "\n");
             console.log(correctOrNot + "\n");
             console.log("Incorrect guesses remaining: " + gameWord.remainingGuesses + "\n");
+            console.log("Correct: " + gameWord.correctCount + " out of " + gameWord.wordLength + "\n");
             guessLetter();
           }
         } else {

@@ -8,7 +8,7 @@ var Word = function (word){
     this.previousCorrect = 0;
     this.newCorrect = 0;
     this.remainingGuesses = 10;
-    this.wordLength = this.currentWord.length;
+    //this.wordLength = this.currentWord.length;
 
      for(i=0; i<this.currentWord.length; i++){
         var currentCharacter = this.currentWord.charAt(i);
@@ -18,20 +18,25 @@ var Word = function (word){
 
     this.buildWord = function(){
         var builtWord = "";
+        this.wordLength = this.currentWord.length;
         for (i=0; i<this.currentCharacters.length; i++){
             builtWord += this.currentCharacters[i].displayCharacter() + " ";
+            if (this.currentCharacters[i].ignore === true){
+                this.wordLength --;
+            }
         }
+        console.log(this.wordLength);
         return builtWord;
         }
     
     this.checkGuess = function(guess){
         this.previousCorrect = this.correctCount;
         console.log("Previous: " + this.previousCorrect);
-        for (i=0; i<this.currentCharacters.length; i++){
+        for (i=0; i<this.currentWord.length; i++){
             var correct = this.currentCharacters[i].checkCharacter(guess);
             if (correct === true){
                 this.correctCount ++;
-            } 
+        } 
         }
         this.newCorrect = this.correctCount - this.previousCorrect;
         console.log("New: " + this.newCorrect);
