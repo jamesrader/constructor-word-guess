@@ -2,6 +2,7 @@ var createLetters = require ("./Letter.js");
 
 var Word = function (word){
     this.currentWord = word;
+    console.log(word + " - " + this.currentWord);
     this.currentCharacters = [];
     this.finished = false;
     this.correctCount = 0;
